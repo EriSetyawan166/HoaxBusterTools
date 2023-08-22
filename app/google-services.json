@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "372753235487",
+    "firebase_url": "https://hoaxbustertool.firebaseio.com",
+    "project_id": "hoaxbustertool",
+    "storage_bucket": "hoaxbustertool.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372753235487:android:a7c823c06e4403bb",
+        "android_client_info": {
+          "package_name": "irfan.hoaxbustertools"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "372753235487-to6568qul9cmqf7o9482gr0i4u0gqiki.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "irfan.hoaxbustertools",
+            "certificate_hash": "154cfa43b8c60b5e54351da2061c596b2e1512cd"
+          }
+        },
+        {
+          "client_id": "372753235487-jjk48cqqglm3o1sfuao50ib68bcvaeho.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkMSf6pD7_d1UbO0XrirN4eFA9dVzvo4w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "372753235487-jjk48cqqglm3o1sfuao50ib68bcvaeho.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "372753235487-ikgk1uu2oo8gkl5evg2gbnsgrnud55ts.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gabrielstevano.ios.hbt"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
