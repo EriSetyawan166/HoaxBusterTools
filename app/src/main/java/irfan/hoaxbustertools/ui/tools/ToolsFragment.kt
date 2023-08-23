@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
+
+
 import irfan.hoaxbustertools.R
 
 class ToolsFragment : Fragment() {
@@ -22,6 +24,7 @@ class ToolsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val args = arguments
         menuName = args?.getString("menuName", "") ?: ""
 
@@ -33,7 +36,7 @@ class ToolsFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
 
-        toolsAdapter = ToolsAdapter(toolsList)
+        toolsAdapter = ToolsAdapter(requireContext(), toolsList)
         recyclerView.adapter = toolsAdapter
 
         // Fetch data from Firebase based on menuName
@@ -69,5 +72,7 @@ class ToolsFragment : Fragment() {
             }
         })
     }
+
+
 
 }

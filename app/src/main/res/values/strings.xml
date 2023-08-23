@@ -12,6 +12,8 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="halaman_depan">Halaman Depan</string>
     <string name="menu_about">Tentang</string>
+    <string name="tools">Tools</string>
+    <string name="tool">Tool</string>
 
     <string name="about_app_name">HBT (Hoax Buster Tools)</string>
     <string name="about_version">version 1.1.4</string>
@@ -24,4 +26,8 @@
     <string name="about_bantuan_link">Untuk bantuan, click disini : http://tbh.id/12345</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="buka_di_browser">Buka di Browser</string>
+    <string name="salin_link">Salin Link</string>
+    <string name="bagikan_link">Bagikan Link</string>
+    <string name="tambah_ke_favorit">Tambah ke Favorit</string>
 </resources>

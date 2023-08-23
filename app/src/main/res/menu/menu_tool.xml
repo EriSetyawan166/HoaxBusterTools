@@ -1,0 +1,33 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_tools"
+        android:title="@string/tools"
+        app:showAsAction="always"
+        android:icon="@drawable/baseline_more_24">
+        <menu>
+            <item
+                android:id="@+id/action_buka_browser"
+                android:title="@string/buka_di_browser"
+                android:icon="@drawable/browse"
+                app:showAsAction="never"
+                app:itemIconSize="24dp"
+                />
+            <item
+                android:id="@+id/action_salin_link"
+                android:title="@string/salin_link"
+                android:icon="@drawable/baseline_content_copy_24"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_bagikan_link"
+                android:title="@string/bagikan_link"
+                android:icon="@drawable/baseline_share_24"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_tambah_favorit"
+                android:title="@string/tambah_ke_favorit"
+                android:icon="@drawable/favorite_star_shadow_24"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+</menu>

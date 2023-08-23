@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/tools"
         android:name="irfan.hoaxbustertools.ui.tools.ToolsFragment"
-        android:label="tools"
+        android:label="@string/tools"
         tools:layout="@layout/fragment_tools">
 
         <argument
