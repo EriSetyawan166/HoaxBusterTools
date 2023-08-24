@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HoaxBusterTools</string>
+    <string name="app_name">Hoax Buster Tools</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -16,18 +16,42 @@
     <string name="tool">Tool</string>
 
     <string name="about_app_name">HBT (Hoax Buster Tools)</string>
-    <string name="about_version">version 1.1.4</string>
+    <string name="about_version">version 2.0.0</string>
     <string name="about_lead_programmer">Lead Programmer</string>
-    <string name="about_lead_programmer_name">Muhammad Umar Shalih</string>
-    <string name="about_programmer">Programmer</string>
+    <string name="about_lead_programmer_name">Muhammad Eri Setyawan</string>
+    <string name="about_system_analyst">System Analyst</string>
+    <string name="about_system_analyst_name">Harry Sufehmi &amp; Muhammad Umar Shalih</string>
     <string name="about_programmer_name">Muhammad Eri Setyawan</string>
     <string name="about_sponsor">Disponsori Oleh</string>
     <string name="about_sponsor_link">MAFINDO http://www.mafindo.or.id</string>
-    <string name="about_bantuan_link">Untuk bantuan, click disini : http://tbh.id/12345</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="about_bantuan_link">Untuk bantuan, klikk disini : http://tbh.id/12345</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="buka_di_browser">Buka di Browser</string>
     <string name="salin_link">Salin Link</string>
     <string name="bagikan_link">Bagikan Link</string>
     <string name="tambah_ke_favorit">Tambah ke Favorit</string>
+
+    <string name="tentang">
+        MAFINDO adalah komunitas anti-hoaks yang telah resmi menjadi lembaga nirlaba yang sah secara hukum pada tahun 2016. Pada saat ini, MAFINDO terdiri dari lebih dari 95.000 anggota daring, memiliki lebih dari 1.000 relawan, dan lebih dari 20 cabang di berbagai penjuru Indonesia. MAFINDO juga mempunyai tim profesional dalam melakukan tugasnya.
+        \n\nMAFINDO melakukan berbagai kegiatan untuk melawan infodemic / wabah hoaks, seperti hoax busting, edukasi publik, seminar, sarasehan, advokasi ke berbagai pihak, membangun berbagai teknologi anti-hoaks, grassroot engagement, penelitian dan riset, dst.
+        \n\nTelah tersertifikasi secara Internasional oleh International Fact Checking Network (IFCN), dan pada saat ini, MAFINDO telah menjalin berbagai kerjasama dengan berbagai komunitas, para akademisi, organisasi masyarakat sipil lainnya, para tokoh masyarakat, Perserikatan Bangsa-Bangsa (PBB), Uni Eropa, World Health Organization (WHO), United Nations International Children’s Emergency Fund (UNICEF), Centers for Disease Control (CDC), Google, Facebook, dan berbagai pihak lainnya.
+        \n\nSemua dilakukan MAFINDO dan jaringannya untuk turut membangun daya berpikir kritis di masyarakat.
+    </string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>

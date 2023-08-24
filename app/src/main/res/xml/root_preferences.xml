@@ -1,0 +1,21 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:title="Pengaturan Bahasa">
+        <ListPreference
+            app:key="language_preference_key"
+            app:title="Bahasa"
+            app:entries="@array/language_entries"
+            app:entryValues="@array/language_values"
+            app:useSimpleSummaryProvider="true"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Kredit">
+        <Preference
+            app:key="credit_preference_key"
+            app:title="Kredit"
+            />
+    </PreferenceCategory>
+
+</PreferenceScreen>

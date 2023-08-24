@@ -1,11 +1,11 @@
 package irfan.hoaxbustertools
 
+import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.widget.Button
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -73,7 +73,21 @@ class MainActivity : AppCompatActivity() {
         fetchMenusFromFirebase()
         Log.d("AppBarConfig", appBarConfiguration.topLevelDestinations.toString())
 
+        binding.appBarMain.toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_settings -> {
+                    // Launch your Intent for the SettingsActivity
+                    val settingsIntent = Intent(this, SettingsActivity::class.java)
+                    startActivity(settingsIntent)
+                    true
+                }
+                else -> false
+            }
+        }
+
     }
+
+
 
     private fun fetchMenusFromFirebase() {
         val databaseReference = FirebaseDatabase.getInstance().getReference("menus")
