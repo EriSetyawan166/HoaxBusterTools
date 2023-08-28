@@ -1,17 +1,19 @@
 package irfan.hoaxbustertools.ui.tools
 
+import DatabaseHelper
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
-
-
 import irfan.hoaxbustertools.R
+import irfan.hoaxbustertools.ui.tools.FirebaseContent
+import irfan.hoaxbustertools.ui.tools.ToolsAdapter
 
 class ToolsFragment : Fragment() {
 
@@ -20,26 +22,30 @@ class ToolsFragment : Fragment() {
     private lateinit var menuName: String
     private val toolsList = mutableListOf<FirebaseContent>() // Initialize an empty list
 
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var dbHelper: DatabaseHelper
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val args = arguments
         menuName = args?.getString("menuName", "") ?: ""
 
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_tools, container, false)
 
-        // Set up RecyclerView and ToolsAdapter
         recyclerView = view.findViewById(R.id.recyclerViewTools)
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
 
+        sharedPreferences = requireContext().getSharedPreferences("FavoritesPrefs", Context.MODE_PRIVATE)
+        dbHelper = DatabaseHelper(requireContext())
+
         toolsAdapter = ToolsAdapter(requireContext(), toolsList)
+        toolsAdapter.setSharedPreferences(sharedPreferences)
+        toolsAdapter.setDatabaseHelper(dbHelper)
         recyclerView.adapter = toolsAdapter
 
-        // Fetch data from Firebase based on menuName
         fetchContentFromFirebase()
 
         return view
@@ -57,13 +63,12 @@ class ToolsFragment : Fragment() {
                         val name_id = contentSnapshot.child("name_id").getValue(String::class.java) ?: ""
                         val image = contentSnapshot.child("image").getValue(String::class.java) ?: ""
                         val url = contentSnapshot.child("url").getValue(String::class.java) ?: ""
-                        Log.d("FirebaseData", "desc_id: $desc_id, name_id: $name_id, image: $image, url: $url")
-                        FirebaseContent(name_id, image, desc_id, url)
+                        val isFavorite = sharedPreferences.getBoolean(name_id, false)
+                        FirebaseContent(name_id, image, desc_id, url, isFavorite)
                     }
-                    // Clear the existing list and add new data
                     toolsList.clear()
                     toolsList.addAll(contents)
-                    toolsAdapter.notifyDataSetChanged() // Notify the adapter of data change
+                    toolsAdapter.notifyDataSetChanged()
                 }
             }
 
@@ -72,7 +77,4 @@ class ToolsFragment : Fragment() {
             }
         })
     }
-
-
-
 }

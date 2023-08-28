@@ -1,5 +1,6 @@
 package irfan.hoaxbustertools
 
+import DatabaseHelper
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
@@ -23,6 +24,7 @@ import android.graphics.drawable.Drawable
 import android.util.Log
 import android.widget.Toast
 import androidx.navigation.NavController
+import irfan.hoaxbustertools.ui.tools.FirebaseContent
 
 data class FirebaseMenu @JvmOverloads constructor(
     val name: String = "",
@@ -97,6 +99,10 @@ class MainActivity : AppCompatActivity() {
                 val menus = dataSnapshot.children.mapNotNull { it.getValue(FirebaseMenu::class.java) }
                 Log.d("FirebaseFetch", "Processed menus: $menus")
                 updateNavigationMenuItems(menus)
+                menus.forEach { menu ->
+                    val menuName = menu.name
+                    fetchContentFromFirebase(menuName)
+                }
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 val errorMessage = "Gagal Mengambil Data"
@@ -105,6 +111,34 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
+    private fun fetchContentFromFirebase(menuName: String) {
+        val databaseReference = FirebaseDatabase.getInstance().getReference("menus")
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val menuSnapshot = dataSnapshot.children.find { it.child("name").getValue(String::class.java) == menuName }
+                menuSnapshot?.let {
+                    val contentsSnapshot = it.child("contents")
+                    val contents = contentsSnapshot.children.mapNotNull { contentSnapshot ->
+                        val desc_id = contentSnapshot.child("desc_id").getValue(String::class.java) ?: ""
+                        val name_id = contentSnapshot.child("name_id").getValue(String::class.java) ?: ""
+                        val image = contentSnapshot.child("image").getValue(String::class.java) ?: ""
+                        val url = contentSnapshot.child("url").getValue(String::class.java) ?: ""
+                        Log.d("FirebaseData", "desc_id: $desc_id, name_id: $name_id, image: $image, url: $url")
+                        FirebaseContent(name_id, image, desc_id, url)
+                    }
+
+
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle error
+            }
+        })
+    }
+
+
 
 
     private fun updateNavigationMenuItems(menus: List<FirebaseMenu>) {

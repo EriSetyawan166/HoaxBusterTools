@@ -1,7 +1,9 @@
 package irfan.hoaxbustertools.ui.tools
 
+import DatabaseHelper
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.button.MaterialButton
 import irfan.hoaxbustertools.R
 import irfan.hoaxbustertools.ToolActivity
 
@@ -20,10 +23,23 @@ data class FirebaseContent(
     val image: String,
     val desc_id: String,
     val url: String,
+    var isFavorite: Boolean = false,
 )
 
 class ToolsAdapter(private val context: Context, private val toolsList: List<FirebaseContent>) :
     RecyclerView.Adapter<ToolsAdapter.ToolViewHolder>() {
+
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var dbHelper: DatabaseHelper
+
+    fun setSharedPreferences(sharedPrefs: SharedPreferences) {
+        sharedPreferences = sharedPrefs
+    }
+
+    fun setDatabaseHelper(databaseHelper: DatabaseHelper) {
+        dbHelper = databaseHelper
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToolViewHolder {
         val itemView =
@@ -52,6 +68,26 @@ class ToolsAdapter(private val context: Context, private val toolsList: List<Fir
 //                .commit()
 //        }
 
+        holder.favoriteIcon.setBackgroundResource(
+            if (currentTool.isFavorite) R.drawable.favorite_star_yellow_24
+            else R.drawable.favorite_star_shadow_24
+        )
+
+        holder.favoriteIcon.setOnClickListener {
+            currentTool.isFavorite = !currentTool.isFavorite
+            notifyItemChanged(position)
+
+            // Update SQLite database and SharedPreferences
+            dbHelper.updateFavoriteStatus(currentTool.name_id, currentTool.isFavorite)
+            sharedPreferences.edit().putBoolean(currentTool.name_id, currentTool.isFavorite).apply()
+
+            // Set the background resource based on the updated favorite state
+            holder.favoriteIcon.setBackgroundResource(
+                if (currentTool.isFavorite) R.drawable.favorite_star_yellow_24
+                else R.drawable.favorite_star_shadow_24
+            )
+        }
+
         holder.bukaToolButton.setOnClickListener {
             val intent = Intent(context, ToolActivity::class.java)
             intent.putExtra("url", currentTool.url)
@@ -67,5 +103,7 @@ class ToolsAdapter(private val context: Context, private val toolsList: List<Fir
         val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
         val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
         val bukaToolButton: Button = itemView.findViewById(R.id.bukaToolButton)
+        val favoriteIcon: Button = itemView.findViewById(R.id.favoriteIcon)
+
     }
 }
