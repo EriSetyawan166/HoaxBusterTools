@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
+import irfan.hoaxbustertools.FavoriteChangeListener
 import irfan.hoaxbustertools.R
 import irfan.hoaxbustertools.ToolActivity
 
@@ -31,6 +32,15 @@ class ToolsAdapter(private val context: Context, private val toolsList: List<Fir
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var dbHelper: DatabaseHelper
+    private var favoriteChangeListener: FavoriteChangeListener? = null
+
+    interface FavoriteChangeListener {
+        fun onFavoriteChanged(nameId: String, isFavorite: Boolean)
+    }
+
+    fun setFavoriteChangeListener(listener: FavoriteChangeListener) {
+        favoriteChangeListener = listener
+    }
 
     fun setSharedPreferences(sharedPrefs: SharedPreferences) {
         sharedPreferences = sharedPrefs
@@ -69,21 +79,16 @@ class ToolsAdapter(private val context: Context, private val toolsList: List<Fir
 //        }
 
         holder.favoriteIcon.setBackgroundResource(
-            if (currentTool.isFavorite) R.drawable.favorite_star_yellow_24
+            if (dbHelper.isToolFavorite(currentTool.name_id)) R.drawable.favorite_star_yellow_24
             else R.drawable.favorite_star_shadow_24
         )
 
         holder.favoriteIcon.setOnClickListener {
-            currentTool.isFavorite = !currentTool.isFavorite
+            val newFavoriteStatus = !dbHelper.isToolFavorite(currentTool.name_id)
+            dbHelper.updateFavoriteStatus(currentTool.name_id, newFavoriteStatus)
             notifyItemChanged(position)
-
-            // Update SQLite database and SharedPreferences
-            dbHelper.updateFavoriteStatus(currentTool.name_id, currentTool.isFavorite)
-            sharedPreferences.edit().putBoolean(currentTool.name_id, currentTool.isFavorite).apply()
-
-            // Set the background resource based on the updated favorite state
             holder.favoriteIcon.setBackgroundResource(
-                if (currentTool.isFavorite) R.drawable.favorite_star_yellow_24
+                if (newFavoriteStatus) R.drawable.favorite_star_yellow_24
                 else R.drawable.favorite_star_shadow_24
             )
         }

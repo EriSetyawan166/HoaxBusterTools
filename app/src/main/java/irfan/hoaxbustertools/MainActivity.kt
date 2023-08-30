@@ -1,6 +1,7 @@
 package irfan.hoaxbustertools
 
 import DatabaseHelper
+import android.content.ContentValues
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity() {
         val btnHome: Button = headerView.findViewById(R.id.btnHome)
         val btnAbout: Button = headerView.findViewById(R.id.btnAbout)
 
+
         btnHome.setOnClickListener {
             navController.navigate(R.id.nav_home)
             binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -73,6 +75,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         fetchMenusFromFirebase()
+
         Log.d("AppBarConfig", appBarConfiguration.topLevelDestinations.toString())
 
         binding.appBarMain.toolbar.setOnMenuItemClickListener { menuItem ->
@@ -114,6 +117,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun fetchContentFromFirebase(menuName: String) {
         val databaseReference = FirebaseDatabase.getInstance().getReference("menus")
+        val db = DatabaseHelper(this)
+        val isFavoritesTableEmpty = db.isFavoritesTableEmpty()
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val menuSnapshot = dataSnapshot.children.find { it.child("name").getValue(String::class.java) == menuName }
@@ -127,6 +132,15 @@ class MainActivity : AppCompatActivity() {
                         Log.d("FirebaseData", "desc_id: $desc_id, name_id: $name_id, image: $image, url: $url")
                         FirebaseContent(name_id, image, desc_id, url)
                     }
+
+
+                    if (isFavoritesTableEmpty) {
+                        Log.d("DatabaseInit", "Initializing favorites content")
+                        initializeDatabase(contents)
+                    } else {
+                        Log.d("DatabaseInit", "Favorites content already initialized")
+                    }
+
 
 
                 }
@@ -173,6 +187,14 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
+    private fun initializeDatabase(contents: List<FirebaseContent>) {
+        val db = DatabaseHelper(this)
+        for (content in contents) {
+            db.insert(content.name_id)
+        }
+    }
+
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -32,6 +32,10 @@
     <string name="bagikan_link">Bagikan Link</string>
     <string name="tambah_ke_favorit">Tambah ke Favorit</string>
 
+    <string name="empty_favorites_text">Tool Favorit Kamu Masih Kosong</string>
+    <string name="add_favorites_text">Tambah Tool ke Favorit agar Tool bisa kamu gunakan dari halaman depan</string>
+
+
     <string name="tentang">
         MAFINDO adalah komunitas anti-hoaks yang telah resmi menjadi lembaga nirlaba yang sah secara hukum pada tahun 2016. Pada saat ini, MAFINDO terdiri dari lebih dari 95.000 anggota daring, memiliki lebih dari 1.000 relawan, dan lebih dari 20 cabang di berbagai penjuru Indonesia. MAFINDO juga mempunyai tim profesional dalam melakukan tugasnya.
         \n\nMAFINDO melakukan berbagai kegiatan untuk melawan infodemic / wabah hoaks, seperti hoax busting, edukasi publik, seminar, sarasehan, advokasi ke berbagai pihak, membangun berbagai teknologi anti-hoaks, grassroot engagement, penelitian dan riset, dst.

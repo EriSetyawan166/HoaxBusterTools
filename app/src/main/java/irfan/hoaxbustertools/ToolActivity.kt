@@ -1,7 +1,9 @@
 package irfan.hoaxbustertools
 
+import DatabaseHelper
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -13,11 +15,22 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+
+interface FavoriteChangeListener {
+    fun onFavoriteChanged(nameId: String, isFavorite: Boolean)
+}
 
 class ToolActivity : AppCompatActivity() {
 
     private lateinit var toolbar: Toolbar
     private lateinit var webView: WebView
+    private lateinit var dbHelper: DatabaseHelper
+    private var favoriteChangeListener: FavoriteChangeListener? = null
+
+    fun setFavoriteChangeListener(listener: FavoriteChangeListener) {
+        favoriteChangeListener = listener
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +43,8 @@ class ToolActivity : AppCompatActivity() {
         // Set up Toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        dbHelper = DatabaseHelper(this)
 
         // Get URL and load it in WebView
         val url = intent.getStringExtra("url")
@@ -57,8 +72,15 @@ class ToolActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_tool, menu)
+        val toolId = intent.getStringExtra("name_id")
+        if (toolId != null) {
+            val isFavorited = dbHelper.isToolFavorite(toolId)
+            Log.d("ToolActivity", "isFavorited: $isFavorited")
+            updateFavoriteIcon(menu.findItem(R.id.action_tambah_favorit), isFavorited)
+        }
         return true
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -92,6 +114,19 @@ class ToolActivity : AppCompatActivity() {
             }
 
             R.id.action_tambah_favorit -> {
+                val toolId = intent.getStringExtra("name_id")
+                if (toolId != null) {
+                    val isFavorited = dbHelper.isToolFavorite(toolId)
+                    val newFavoriteStatus = !isFavorited
+                    dbHelper.updateFavoriteStatus(toolId, newFavoriteStatus)
+                    updateFavoriteIcon(item, newFavoriteStatus)
+
+                    // Notify ToolsFragment about the favorite change
+                    val intent = Intent("favorite_changed")
+                    intent.putExtra("name_id", toolId)
+                    intent.putExtra("is_favorite", newFavoriteStatus)
+                    LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+                }
                 return true
             }
 
@@ -100,8 +135,24 @@ class ToolActivity : AppCompatActivity() {
     }
 
 
+    private fun getFavoriteTools(): Set<String> {
+        val preferences = getSharedPreferences("Favorites", Context.MODE_PRIVATE)
+        return preferences.getStringSet("favorites", setOf()) ?: setOf()
+    }
+
+    private fun updateFavoriteIcon(menuItem: MenuItem, isFavorited: Boolean) {
+        if (isFavorited) {
+            menuItem.setIcon(R.drawable.favorite_star_yellow_24) // Set filled icon
+        } else {
+            menuItem.setIcon(R.drawable.favorite_star_shadow_24) // Set shadow icon
+        }
+    }
+
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }
+
+
 }
