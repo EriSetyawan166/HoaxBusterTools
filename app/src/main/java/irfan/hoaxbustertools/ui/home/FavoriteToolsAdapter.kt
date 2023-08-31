@@ -81,6 +81,10 @@ class FavoriteToolsAdapter(private val favoriteTools: MutableList<ToolItem>,
         )
 
         holder.favoriteButton.setOnClickListener {
+            val toolIndex = favoriteTools.indexOf(tool) // Get the current tool's index
+
+            Log.d("FavoriteToolsAdapter", "Before Click - Index: $toolIndex, Size: ${favoriteTools.size}")
+
             val newFavoriteStatus = !dbHelper.isToolFavorite(tool.name_id)
             dbHelper.updateFavoriteStatus(tool.name_id, newFavoriteStatus)
 
@@ -92,15 +96,24 @@ class FavoriteToolsAdapter(private val favoriteTools: MutableList<ToolItem>,
                     listener.onFavoriteStatusChanged(tool)
                 } else {
                     // Remove the item from the list and notify the adapter
-                    favoriteTools.removeAt(position)
-                    notifyItemRemoved(position)
+                    favoriteTools.removeAt(toolIndex)
+                    notifyItemRemoved(toolIndex)
+
+                    // Update the tool index to a valid value
+                    val newToolIndex = toolIndex.coerceAtMost(favoriteTools.size - 1)
+
+                    // Notify adapter about the change
+                    notifyItemRangeChanged(newToolIndex, favoriteTools.size - newToolIndex)
                 }
             } else {
                 // Update the favorite status of the current tool and notify the adapter
                 tool.isFavorite = newFavoriteStatus
-                notifyItemChanged(position)
+                notifyItemChanged(toolIndex)
             }
+
+            Log.d("FavoriteToolsAdapter", "After Click - Index: $toolIndex, Size: ${favoriteTools.size}")
         }
+
 
         holder.openToolsButton.setOnClickListener {
             val intent = Intent(holder.context, ToolActivity::class.java)

@@ -50,13 +50,13 @@
         android:textAlignment="center"
         android:textSize="18sp"
         android:layout_marginBottom="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/buttonCobaTool"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_home" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonCobaTool"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="40sp"

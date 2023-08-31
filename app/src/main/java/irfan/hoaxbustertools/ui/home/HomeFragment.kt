@@ -12,6 +12,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -61,7 +63,7 @@ class HomeFragment : Fragment(), OnFavoriteStatusChangedListener {
         val imageView = view.findViewById<ImageView>(R.id.imageView2)
         val textHome = view.findViewById<TextView>(R.id.text_home)
         val textHome2 = view.findViewById<TextView>(R.id.text_home2)
-        val button = view.findViewById<Button>(R.id.button)
+        val buttonCobaTool = view.findViewById<Button>(R.id.buttonCobaTool)
 
         val dbHelper = DatabaseHelper(requireContext())
         val favoritedTools = dbHelper.getFavoriteNameIds()
@@ -79,6 +81,10 @@ class HomeFragment : Fragment(), OnFavoriteStatusChangedListener {
             } else {
                 showRecyclerViewWithTools(fetchedTools, dbHelper)
             }
+        }
+
+        buttonCobaTool.setOnClickListener {
+            openSidebarMenu()
         }
 
 
@@ -103,13 +109,28 @@ class HomeFragment : Fragment(), OnFavoriteStatusChangedListener {
     }
 
 
+    private fun openSidebarMenu() {
+        val drawerLayout = requireActivity().findViewById<DrawerLayout>(R.id.drawer_layout)
+        drawerLayout.openDrawer(GravityCompat.START)
+    }
+
+    fun onBackPressedInFragment() {
+        val drawerLayout = requireActivity().findViewById<DrawerLayout>(R.id.drawer_layout)
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            requireActivity().onBackPressed()
+        }
+    }
+
+
     private fun showEmptyStateView() {
         _binding?.imageView2?.visibility = View.VISIBLE
         _binding?.textHome?.text = getString(R.string.empty_favorites_text)
         _binding?.textHome2?.text = getString(R.string.add_favorites_text)
         _binding?.textHome?.visibility = View.VISIBLE
         _binding?.textHome2?.visibility = View.VISIBLE
-        _binding?.button?.visibility = View.VISIBLE
+        _binding?.buttonCobaTool?.visibility = View.VISIBLE
         _binding?.recyclerViewToolsFavorite?.visibility = View.GONE
     }
 
@@ -117,7 +138,7 @@ class HomeFragment : Fragment(), OnFavoriteStatusChangedListener {
         _binding?.imageView2?.visibility = View.GONE
         _binding?.textHome?.visibility = View.GONE
         _binding?.textHome2?.visibility = View.GONE
-        _binding?.button?.visibility = View.GONE
+        _binding?.buttonCobaTool?.visibility = View.GONE
 
         // Update UI with fetchedTools
         val adapter = FavoriteToolsAdapter(fetchedTools, dbHelper, this)

@@ -25,6 +25,7 @@ import android.graphics.drawable.Drawable
 import android.util.Log
 import android.widget.Toast
 import androidx.navigation.NavController
+import irfan.hoaxbustertools.ui.home.HomeFragment
 import irfan.hoaxbustertools.ui.tools.FirebaseContent
 
 data class FirebaseMenu @JvmOverloads constructor(
@@ -90,6 +91,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+
+    }
+
+    override fun onBackPressed() {
+        val fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as? HomeFragment
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else if (fragment != null && fragment.isVisible) {
+            fragment.onBackPressedInFragment()
+        } else {
+            super.onBackPressed()
+        }
     }
 
 
