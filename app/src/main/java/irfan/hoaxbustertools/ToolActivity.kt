@@ -10,8 +10,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Button
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -26,6 +30,10 @@ class ToolActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var webView: WebView
     private lateinit var dbHelper: DatabaseHelper
+    private lateinit var searchLayout: LinearLayout
+    private lateinit var searchButton: Button
+    private lateinit var searchEditText: EditText
+    private var isSearchMode: Boolean = false
     private var favoriteChangeListener: FavoriteChangeListener? = null
 
     fun setFavoriteChangeListener(listener: FavoriteChangeListener) {
@@ -36,9 +44,13 @@ class ToolActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tool)
 
+
         // Find views
         toolbar = findViewById(R.id.toolbarTool)
         webView = findViewById(R.id.webViewTool)
+        searchLayout = findViewById<LinearLayout>(R.id.searchLayout)
+        searchEditText = findViewById<EditText>(R.id.searchEditText)
+        searchButton = findViewById<Button>(R.id.searchButton)
 
         // Set up Toolbar
         setSupportActionBar(toolbar)
@@ -49,10 +61,21 @@ class ToolActivity : AppCompatActivity() {
         // Get URL and load it in WebView
         val url = intent.getStringExtra("url")
         val nameId = intent.getStringExtra("name_id")
+        isSearchMode = intent.getBooleanExtra("is_search", false)
         Log.d("ToolActivity", "Received URL: $url")
         Log.d("ToolActivity", "Received Name ID: $nameId")
+        Log.d("ToolActivity", "Received is_search: $isSearchMode")
         supportActionBar?.title = nameId
 
+        if (isSearchMode) {
+            // Jika dalam mode pencarian, tampilkan elemen pencarian
+            searchLayout.visibility = View.VISIBLE
+            webView.visibility = View.GONE
+        } else {
+            // Jika bukan dalam mode pencarian, tampilkan WebView
+            searchLayout.visibility = View.GONE
+            webView.visibility = View.VISIBLE
+        }
 
         if (!url.isNullOrBlank()) {
             webView.settings.javaScriptEnabled = true
@@ -67,6 +90,24 @@ class ToolActivity : AppCompatActivity() {
                 }
             }
         }
+
+        searchButton.setOnClickListener {
+            Log.d("SearchButton", "Button clicked")
+            val userInput = searchEditText.text.toString().trim()
+            if (userInput.isNotEmpty()) {
+                val baseUrl = intent.getStringExtra("url")
+                if (baseUrl != null) {
+                    val newUrl = baseUrl.replace("{search}", userInput)
+                    Log.d("SearchButton", "New URL: $newUrl")
+                    webView.loadUrl(newUrl)
+                    webView.visibility = View.VISIBLE
+                } else {
+                    // Handle the case where baseUrl is null
+                }
+            }
+        }
+
+
 
     }
 

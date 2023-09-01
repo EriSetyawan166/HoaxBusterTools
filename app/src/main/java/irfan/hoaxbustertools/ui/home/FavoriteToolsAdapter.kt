@@ -21,7 +21,8 @@ data class ToolItem(
     val desc_id: String,
     val image: String,
     val url: String,
-    var isFavorite: Boolean = false,
+    val is_search: Boolean = false,
+    var isFavorite: Boolean = false
 )
 
 interface OnFavoriteStatusChangedListener {
@@ -119,6 +120,7 @@ class FavoriteToolsAdapter(private val favoriteTools: MutableList<ToolItem>,
             val intent = Intent(holder.context, ToolActivity::class.java)
             intent.putExtra("url", tool.url)
             intent.putExtra("name_id", tool.name_id)
+            intent.putExtra("is_search", tool.is_search)
             holder.context.startActivity(intent)
         }
     }

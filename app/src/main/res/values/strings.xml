@@ -31,6 +31,7 @@
     <string name="salin_link">Salin Link</string>
     <string name="bagikan_link">Bagikan Link</string>
     <string name="tambah_ke_favorit">Tambah ke Favorit</string>
+    <string name="Cari">Cari</string>
 
     <string name="empty_favorites_text">Tool Favorit Kamu Masih Kosong</string>
     <string name="add_favorites_text">Tambah Tool ke Favorit agar Tool bisa kamu gunakan dari halaman depan</string>

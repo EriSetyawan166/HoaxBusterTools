@@ -51,10 +51,12 @@ class MainActivity : AppCompatActivity() {
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
         val headerView = navView.getHeaderView(0)
         val btnHome: Button = headerView.findViewById(R.id.btnHome)
         val btnAbout: Button = headerView.findViewById(R.id.btnAbout)
+
+        navController = findNavController(R.id.nav_host_fragment_content_main) // Initialize navController here
+
 
 
         btnHome.setOnClickListener {
@@ -66,6 +68,8 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.about)
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
+
+
 
         appBarConfiguration = AppBarConfiguration(
             setOf(R.id.nav_home, R.id.about, R.id.tools),

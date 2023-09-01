@@ -24,7 +24,8 @@ data class FirebaseContent(
     val image: String,
     val desc_id: String,
     val url: String,
-    var isFavorite: Boolean = false,
+    val is_search: Boolean = false,
+    var isFavorite: Boolean = false
 )
 
 class ToolsAdapter(private val context: Context, private val toolsList: List<FirebaseContent>) :
@@ -97,6 +98,7 @@ class ToolsAdapter(private val context: Context, private val toolsList: List<Fir
             val intent = Intent(context, ToolActivity::class.java)
             intent.putExtra("url", currentTool.url)
             intent.putExtra("name_id", currentTool.name_id)
+            intent.putExtra("is_search", currentTool.is_search)
             context.startActivity(intent)
         }
     }

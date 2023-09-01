@@ -107,8 +107,9 @@ class ToolsFragment : Fragment(), ToolsAdapter.FavoriteChangeListener {
                         val name_id = contentSnapshot.child("name_id").getValue(String::class.java) ?: ""
                         val image = contentSnapshot.child("image").getValue(String::class.java) ?: ""
                         val url = contentSnapshot.child("url").getValue(String::class.java) ?: ""
+                        val is_search = contentSnapshot.child("is_search").getValue(Boolean::class.java) ?: false
                         val isFavorite = sharedPreferences.getBoolean(name_id, false)
-                        FirebaseContent(name_id, image, desc_id, url, isFavorite)
+                        FirebaseContent(name_id, image, desc_id, url,is_search, isFavorite)
                     }
                     toolsList.clear()
                     toolsList.addAll(contents)

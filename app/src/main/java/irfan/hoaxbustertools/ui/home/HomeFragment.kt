@@ -163,9 +163,10 @@ class HomeFragment : Fragment(), OnFavoriteStatusChangedListener {
                             val descId = contentSnapshot.child("desc_id").getValue(String::class.java)
                             val image = contentSnapshot.child("image").getValue(String::class.java)
                             val url = contentSnapshot.child("url").getValue(String::class.java)
+                            val is_search = contentSnapshot.child("is_search").getValue(Boolean::class.java) ?: false
 
                             if (descId != null && image != null && url != null) {
-                                val toolItem = ToolItem(nameId!!, descId, image, url)
+                                val toolItem = ToolItem(nameId!!, descId, image, url, is_search)
                                 toolDetailsList.add(toolItem)
                             }
                         }
