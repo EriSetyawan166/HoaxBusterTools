@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hoax Buster Tools</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Pengaturan</string>
+
+    <string name="menu_home">Hoax Buster Tools</string>
+    <string name="halaman_depan">Halaman Depan</string>
+    <string name="menu_about">Tentang</string>
+    <string name="tools">Tools</string>
+    <string name="tool">Tool</string>
+
+    <string name="about_app_name">HBT (Hoax Buster Tools)</string>
+    <string name="about_lead_programmer">Lead Programmer</string>
+    <string name="about_lead_programmer_name">Muhammad Eri Setyawan</string>
+    <string name="about_system_analyst">System Analyst</string>
+    <string name="about_system_analyst_name">Harry Sufehmi &amp; Muhammad Umar Shalih</string>
+    <string name="about_programmer_name">Muhammad Eri Setyawan</string>
+    <string name="about_sponsor_link">MAFINDO http://www.mafindo.or.id</string>
+
+    <string name="about_version">versi 2.0.0</string>
+    <string name="about_sponsor">Disponsori Oleh</string>
+    <string name="about_bantuan_link">Untuk bantuan, klik disini : http://tbh.id/12345</string>
+
+    <string name="button_buka">Buka Tool</string>
+    <string name="button_coba">Mulai Mencoba Tool</string>
+    <string name="buka_di_browser">Buka di Browser</string>
+    <string name="salin_link">Salin Link</string>
+    <string name="bagikan_link">Bagikan Link</string>
+    <string name="tambah_ke_favorit">Tambah ke Favorit</string>
+    <string name="Cari">Cari</string>
+
+    <string name="salin">Link telah disalin</string>
+    <string name="share">Bagikan link melalui</string>
+
+    <string name="bahasa">Bahasa</string>
+    <string name="kredit">Kredit</string>
+
+
+    <string name="empty_favorites_text">Tool Favorit Kamu Masih Kosong</string>
+    <string name="add_favorites_text">Tambah Tool ke Favorit agar Tool bisa kamu gunakan dari halaman depan</string>
+
+
+    <string name="tentang">
+        MAFINDO adalah komunitas anti-hoaks yang telah resmi menjadi lembaga nirlaba yang sah secara hukum pada tahun 2016. Pada saat ini, MAFINDO terdiri dari lebih dari 95.000 anggota daring, memiliki lebih dari 1.000 relawan, dan lebih dari 20 cabang di berbagai penjuru Indonesia. MAFINDO juga mempunyai tim profesional dalam melakukan tugasnya.
+        \n\nMAFINDO melakukan berbagai kegiatan untuk melawan infodemic / wabah hoaks, seperti hoax busting, edukasi publik, seminar, sarasehan, advokasi ke berbagai pihak, membangun berbagai teknologi anti-hoaks, grassroot engagement, penelitian dan riset, dst.
+        \n\nTelah tersertifikasi secara Internasional oleh International Fact Checking Network (IFCN), dan pada saat ini, MAFINDO telah menjalin berbagai kerjasama dengan berbagai komunitas, para akademisi, organisasi masyarakat sipil lainnya, para tokoh masyarakat, Perserikatan Bangsa-Bangsa (PBB), Uni Eropa, World Health Organization (WHO), United Nations International Children’s Emergency Fund (UNICEF), Centers for Disease Control (CDC), Google, Facebook, dan berbagai pihak lainnya.
+        \n\nSemua dilakukan MAFINDO dan jaringannya untuk turut membangun daya berpikir kritis di masyarakat.
+    </string>
+    <string name="title_activity_settings">Pengaturan</string>
+
+</resources>

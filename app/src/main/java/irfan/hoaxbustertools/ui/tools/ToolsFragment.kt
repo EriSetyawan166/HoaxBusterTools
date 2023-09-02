@@ -105,11 +105,14 @@ class ToolsFragment : Fragment(), ToolsAdapter.FavoriteChangeListener {
                     val contents = contentsSnapshot.children.mapNotNull { contentSnapshot ->
                         val desc_id = contentSnapshot.child("desc_id").getValue(String::class.java) ?: ""
                         val name_id = contentSnapshot.child("name_id").getValue(String::class.java) ?: ""
+                        val desc_eng = contentSnapshot.child("desc_eng").getValue(String::class.java) ?: ""
+                        val name_eng = contentSnapshot.child("name_eng").getValue(String::class.java) ?: ""
                         val image = contentSnapshot.child("image").getValue(String::class.java) ?: ""
                         val url = contentSnapshot.child("url").getValue(String::class.java) ?: ""
                         val is_search = contentSnapshot.child("is_search").getValue(Boolean::class.java) ?: false
+                        val using_browser_default = contentSnapshot.child("using_browser_default").getValue(Boolean::class.java) ?: false
                         val isFavorite = sharedPreferences.getBoolean(name_id, false)
-                        FirebaseContent(name_id, image, desc_id, url,is_search, isFavorite)
+                        FirebaseContent(name_id, image, desc_id, url,name_eng, desc_eng,is_search, using_browser_default, isFavorite)
                     }
                     toolsList.clear()
                     toolsList.addAll(contents)

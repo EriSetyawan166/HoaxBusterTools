@@ -10,12 +10,5 @@
         <item>reply_all</item>
     </string-array>
 
-    <string-array name="language_entries">
-        <item>Bahasa Indonesia</item>
-        <item>English</item>
-    </string-array>
-    <string-array name="language_values">
-        <item>id</item>
-        <item>en</item>
-    </string-array>
+
 </resources>

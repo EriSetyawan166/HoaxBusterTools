@@ -4,6 +4,7 @@ import DatabaseHelper
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -24,9 +25,14 @@ data class FirebaseContent(
     val image: String,
     val desc_id: String,
     val url: String,
+    val name_eng: String,
+    val desc_eng: String,
     val is_search: Boolean = false,
+    val using_browser_default: Boolean = false,
     var isFavorite: Boolean = false
+
 )
+
 
 class ToolsAdapter(private val context: Context, private val toolsList: List<FirebaseContent>) :
     RecyclerView.Adapter<ToolsAdapter.ToolViewHolder>() {
@@ -34,6 +40,12 @@ class ToolsAdapter(private val context: Context, private val toolsList: List<Fir
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var dbHelper: DatabaseHelper
     private var favoriteChangeListener: FavoriteChangeListener? = null
+
+    private var currentLanguage: String
+
+    init {
+        currentLanguage = context.resources.configuration.locale.language
+    }
 
     interface FavoriteChangeListener {
         fun onFavoriteChanged(nameId: String, isFavorite: Boolean)
@@ -61,9 +73,21 @@ class ToolsAdapter(private val context: Context, private val toolsList: List<Fir
     override fun onBindViewHolder(holder: ToolViewHolder, position: Int) {
         val currentTool = toolsList[position]
 
+        val toolName = when(currentLanguage) {
+            "in" -> currentTool.name_id
+            "en" -> currentTool.name_eng
+            else -> currentTool.name_eng // Default to English
+        }
+
+        val toolDescription = when(currentLanguage) {
+            "in" -> currentTool.desc_id
+            "en" -> currentTool.desc_eng
+            else -> currentTool.desc_eng // Default to English
+        }
+
         // Set data to views in the CardView
-        holder.titleTextView.text = currentTool.name_id
-        holder.descriptionTextView.text = currentTool.desc_id
+        holder.titleTextView.text = toolName
+        holder.descriptionTextView.text = toolDescription
         // Set image using Glide or other image loading library
         Glide.with(holder.itemView.context)
             .load(currentTool.image)
@@ -94,12 +118,19 @@ class ToolsAdapter(private val context: Context, private val toolsList: List<Fir
             )
         }
 
+
         holder.bukaToolButton.setOnClickListener {
-            val intent = Intent(context, ToolActivity::class.java)
-            intent.putExtra("url", currentTool.url)
-            intent.putExtra("name_id", currentTool.name_id)
-            intent.putExtra("is_search", currentTool.is_search)
-            context.startActivity(intent)
+            if (currentTool.using_browser_default){
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(currentTool.url))
+                holder.context.startActivity(browserIntent)
+            } else{
+                val intent = Intent(context, ToolActivity::class.java)
+                intent.putExtra("url", currentTool.url)
+                intent.putExtra("name_id", toolName)
+                intent.putExtra("is_search", currentTool.is_search)
+                context.startActivity(intent)
+            }
+
         }
     }
 
@@ -111,6 +142,7 @@ class ToolsAdapter(private val context: Context, private val toolsList: List<Fir
         val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
         val bukaToolButton: Button = itemView.findViewById(R.id.bukaToolButton)
         val favoriteIcon: Button = itemView.findViewById(R.id.favoriteIcon)
+        val context: Context = itemView.context
 
     }
 }

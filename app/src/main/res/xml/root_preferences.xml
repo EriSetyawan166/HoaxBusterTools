@@ -1,21 +1,22 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        app:title="Pengaturan Bahasa">
-        <ListPreference
-            app:key="language_preference_key"
-            app:title="Bahasa"
-            app:entries="@array/language_entries"
-            app:entryValues="@array/language_values"
-            app:useSimpleSummaryProvider="true"
-            />
-    </PreferenceCategory>
+    <ListPreference
+        app:key="pref_language"
+        app:title="@string/bahasa"
+        app:entries="@array/language_names"
+        app:entryValues="@array/language_values"
+        app:useSimpleSummaryProvider="true"
+        android:defaultValue="en"
+        />
 
-    <PreferenceCategory app:title="Kredit">
-        <Preference
-            app:key="credit_preference_key"
-            app:title="Kredit"
-            />
-    </PreferenceCategory>
+
+
+    <Preference
+        app:key="credit_preference_key"
+        app:title="@string/kredit"
+        />
+
+
 
 </PreferenceScreen>

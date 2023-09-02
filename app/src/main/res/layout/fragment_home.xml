@@ -63,7 +63,7 @@
         android:paddingTop="20sp"
         android:paddingRight="40sp"
         android:paddingBottom="20sp"
-        android:text="Mulai Mencoba Tool"
+        android:text="@string/button_coba"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

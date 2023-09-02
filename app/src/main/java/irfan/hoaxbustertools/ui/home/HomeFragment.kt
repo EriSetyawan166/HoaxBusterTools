@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import irfan.hoaxbustertools.R
 import irfan.hoaxbustertools.databinding.FragmentHomeBinding
+import java.util.Locale
 
 class HomeFragment : Fragment(), OnFavoriteStatusChangedListener {
 
@@ -53,6 +54,7 @@ class HomeFragment : Fragment(), OnFavoriteStatusChangedListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
 
@@ -160,13 +162,18 @@ class HomeFragment : Fragment(), OnFavoriteStatusChangedListener {
                     for (contentSnapshot in contentsSnapshot.children) {
                         val nameId = contentSnapshot.child("name_id").getValue(String::class.java)
                         if (nameId in nameIds) {
-                            val descId = contentSnapshot.child("desc_id").getValue(String::class.java)
+                            val name_id = contentSnapshot.child("name_id").getValue(String::class.java)
+                            val name_eng = contentSnapshot.child("name_eng").getValue(String::class.java)
+                            val desc_id = contentSnapshot.child("desc_id").getValue(String::class.java)
+                            val desc_eng = contentSnapshot.child("desc_eng").getValue(String::class.java)
                             val image = contentSnapshot.child("image").getValue(String::class.java)
                             val url = contentSnapshot.child("url").getValue(String::class.java)
                             val is_search = contentSnapshot.child("is_search").getValue(Boolean::class.java) ?: false
+                            val using_browser_default = contentSnapshot.child("using_browser_default").getValue(Boolean::class.java) ?: false
 
-                            if (descId != null && image != null && url != null) {
-                                val toolItem = ToolItem(nameId!!, descId, image, url, is_search)
+
+                            if (desc_id != null && name_id != null && name_eng != null && desc_eng != null && image != null && url != null) {
+                                val toolItem = ToolItem(nameId!!, name_id, name_eng ,desc_id, desc_eng,image, url, is_search, using_browser_default)
                                 toolDetailsList.add(toolItem)
                             }
                         }

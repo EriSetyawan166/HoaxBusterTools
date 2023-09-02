@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -20,12 +21,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import java.util.Locale
 
 interface FavoriteChangeListener {
     fun onFavoriteChanged(nameId: String, isFavorite: Boolean)
 }
 
-class ToolActivity : AppCompatActivity() {
+class ToolActivity : BaseActivity() {
 
     private lateinit var toolbar: Toolbar
     private lateinit var webView: WebView
@@ -41,6 +43,8 @@ class ToolActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tool)
 
@@ -65,6 +69,8 @@ class ToolActivity : AppCompatActivity() {
         Log.d("ToolActivity", "Received URL: $url")
         Log.d("ToolActivity", "Received Name ID: $nameId")
         Log.d("ToolActivity", "Received is_search: $isSearchMode")
+
+
         supportActionBar?.title = nameId
 
         if (isSearchMode) {
@@ -76,6 +82,10 @@ class ToolActivity : AppCompatActivity() {
             searchLayout.visibility = View.GONE
             webView.visibility = View.VISIBLE
         }
+
+
+
+
 
         if (!url.isNullOrBlank()) {
             webView.settings.javaScriptEnabled = true
@@ -111,6 +121,9 @@ class ToolActivity : AppCompatActivity() {
 
     }
 
+
+
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_tool, menu)
         val toolId = intent.getStringExtra("name_id")
@@ -139,7 +152,7 @@ class ToolActivity : AppCompatActivity() {
                     val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
                     val clip = ClipData.newPlainText("URL", url)
                     clipboard.setPrimaryClip(clip)
-                    Toast.makeText(this, "Link telah disalin", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.salin), Toast.LENGTH_SHORT).show()
                 }
                 return true
             }
@@ -149,7 +162,7 @@ class ToolActivity : AppCompatActivity() {
                     val shareIntent = Intent(Intent.ACTION_SEND)
                     shareIntent.type = "text/plain"
                     shareIntent.putExtra(Intent.EXTRA_TEXT, url)
-                    startActivity(Intent.createChooser(shareIntent, "Bagikan link melalui"))
+                    startActivity(Intent.createChooser(shareIntent, getString(R.string.share)))
                 }
                 return true
             }

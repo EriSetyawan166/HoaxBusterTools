@@ -2,7 +2,9 @@ package irfan.hoaxbustertools
 
 import DatabaseHelper
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.Menu
@@ -27,22 +29,27 @@ import android.widget.Toast
 import androidx.navigation.NavController
 import irfan.hoaxbustertools.ui.home.HomeFragment
 import irfan.hoaxbustertools.ui.tools.FirebaseContent
+import java.util.Locale
 
 data class FirebaseMenu @JvmOverloads constructor(
     val name: String = "",
+    val name_id: String = "",
+    val name_eng: String = "",
     val icon: String = ""
 )
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private var currentLanguage: String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -51,13 +58,15 @@ class MainActivity : AppCompatActivity() {
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
+        navController = findNavController(R.id.nav_host_fragment_content_main)
+
         val headerView = navView.getHeaderView(0)
         val btnHome: Button = headerView.findViewById(R.id.btnHome)
         val btnAbout: Button = headerView.findViewById(R.id.btnAbout)
 
-        navController = findNavController(R.id.nav_host_fragment_content_main) // Initialize navController here
-
-
+        val currentLocale = LocaleUtil.getLocaleFromPrefCode(storage.getPreferredLocale())
+        currentLanguage = currentLocale.toString()
+        Log.d("LocaleCode", "language in activity: $currentLanguage")
 
         btnHome.setOnClickListener {
             navController.navigate(R.id.nav_home)
@@ -68,8 +77,6 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.about)
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
-
-
 
         appBarConfiguration = AppBarConfiguration(
             setOf(R.id.nav_home, R.id.about, R.id.tools),
@@ -99,6 +106,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+
     override fun onBackPressed() {
         val fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as? HomeFragment
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
@@ -124,6 +133,8 @@ class MainActivity : AppCompatActivity() {
                 updateNavigationMenuItems(menus)
                 menus.forEach { menu ->
                     val menuName = menu.name
+                    val menuNameId = menu.name_id
+                    val menuNameEng = menu.name_eng
                     fetchContentFromFirebase(menuName)
                 }
             }
@@ -147,10 +158,12 @@ class MainActivity : AppCompatActivity() {
                     val contents = contentsSnapshot.children.mapNotNull { contentSnapshot ->
                         val desc_id = contentSnapshot.child("desc_id").getValue(String::class.java) ?: ""
                         val name_id = contentSnapshot.child("name_id").getValue(String::class.java) ?: ""
+                        val desc_eng = contentSnapshot.child("desc_eng").getValue(String::class.java) ?: ""
+                        val name_eng = contentSnapshot.child("name_eng").getValue(String::class.java) ?: ""
                         val image = contentSnapshot.child("image").getValue(String::class.java) ?: ""
                         val url = contentSnapshot.child("url").getValue(String::class.java) ?: ""
                         Log.d("FirebaseData", "desc_id: $desc_id, name_id: $name_id, image: $image, url: $url")
-                        FirebaseContent(name_id, image, desc_id, url)
+                        FirebaseContent(name_id, image, desc_id, url, name_eng, desc_eng)
                     }
 
 
@@ -181,7 +194,12 @@ class MainActivity : AppCompatActivity() {
         menu.clear()
 
         menus.forEachIndexed { index, fetchedMenu ->
-            val menuItem = menu.add(Menu.NONE, index, Menu.NONE, fetchedMenu.name)
+            val menuName = when(currentLanguage) {
+                "in" -> fetchedMenu.name_id
+                "en" -> fetchedMenu.name_eng
+                else -> fetchedMenu.name_eng // Default to English
+            }
+            val menuItem = menu.add(Menu.NONE, index, Menu.NONE, menuName)
 
             Glide.with(this)
                 .load(fetchedMenu.icon)
@@ -201,7 +219,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 navController.navigate(R.id.tools, bundle)
                 binding.drawerLayout.closeDrawer(GravityCompat.START) // Close the drawer
-                supportActionBar?.title = fetchedMenu.name
+                supportActionBar?.title = menuName
                 true
             }
 

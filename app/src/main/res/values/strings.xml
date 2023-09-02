@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Hoax Buster Tools</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -5,58 +6,58 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Pengaturan</string>
+    <string name="action_settings">Settings</string>
 
     <string name="menu_home">Hoax Buster Tools</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="halaman_depan">Halaman Depan</string>
-    <string name="menu_about">Tentang</string>
+    <string name="halaman_depan">Home</string>
+    <string name="menu_about">About</string>
     <string name="tools">Tools</string>
     <string name="tool">Tool</string>
 
     <string name="about_app_name">HBT (Hoax Buster Tools)</string>
-    <string name="about_version">version 2.0.0</string>
     <string name="about_lead_programmer">Lead Programmer</string>
     <string name="about_lead_programmer_name">Muhammad Eri Setyawan</string>
     <string name="about_system_analyst">System Analyst</string>
     <string name="about_system_analyst_name">Harry Sufehmi &amp; Muhammad Umar Shalih</string>
     <string name="about_programmer_name">Muhammad Eri Setyawan</string>
-    <string name="about_sponsor">Disponsori Oleh</string>
     <string name="about_sponsor_link">MAFINDO http://www.mafindo.or.id</string>
-    <string name="about_bantuan_link">Untuk bantuan, klikk disini : http://tbh.id/12345</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="buka_di_browser">Buka di Browser</string>
-    <string name="salin_link">Salin Link</string>
-    <string name="bagikan_link">Bagikan Link</string>
-    <string name="tambah_ke_favorit">Tambah ke Favorit</string>
-    <string name="Cari">Cari</string>
+    <string name="about_version">version 2.0.0</string>
+    <string name="about_sponsor">Sponsored By</string>
+    <string name="about_bantuan_link">For help, click here: http://tbh.id/12345</string>
 
-    <string name="empty_favorites_text">Tool Favorit Kamu Masih Kosong</string>
-    <string name="add_favorites_text">Tambah Tool ke Favorit agar Tool bisa kamu gunakan dari halaman depan</string>
+    <string name="button_buka">Open Tool</string>
+    <string name="button_coba">Start Trying the Tool</string>
+    <string name="buka_di_browser">Open in Browser</string>
+    <string name="salin_link">Copy Link</string>
+    <string name="bagikan_link">Share Link</string>
+    <string name="tambah_ke_favorit">Add to Favorites</string>
+    <string name="Cari">Search</string>
 
+    <string name="salin">Link Copied</string>
+    <string name="share">Share link via</string>
+
+    <string name="bahasa">Language</string>
+    <string name="kredit">Credit</string>
+
+    <string name="empty_favorites_text">Your Favorite Tools List is Empty</string>
+    <string name="add_favorites_text">Add Tools to Favorites to access them from the home page</string>
 
     <string name="tentang">
-        MAFINDO adalah komunitas anti-hoaks yang telah resmi menjadi lembaga nirlaba yang sah secara hukum pada tahun 2016. Pada saat ini, MAFINDO terdiri dari lebih dari 95.000 anggota daring, memiliki lebih dari 1.000 relawan, dan lebih dari 20 cabang di berbagai penjuru Indonesia. MAFINDO juga mempunyai tim profesional dalam melakukan tugasnya.
-        \n\nMAFINDO melakukan berbagai kegiatan untuk melawan infodemic / wabah hoaks, seperti hoax busting, edukasi publik, seminar, sarasehan, advokasi ke berbagai pihak, membangun berbagai teknologi anti-hoaks, grassroot engagement, penelitian dan riset, dst.
-        \n\nTelah tersertifikasi secara Internasional oleh International Fact Checking Network (IFCN), dan pada saat ini, MAFINDO telah menjalin berbagai kerjasama dengan berbagai komunitas, para akademisi, organisasi masyarakat sipil lainnya, para tokoh masyarakat, Perserikatan Bangsa-Bangsa (PBB), Uni Eropa, World Health Organization (WHO), United Nations International Children’s Emergency Fund (UNICEF), Centers for Disease Control (CDC), Google, Facebook, dan berbagai pihak lainnya.
-        \n\nSemua dilakukan MAFINDO dan jaringannya untuk turut membangun daya berpikir kritis di masyarakat.
-    </string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    MAFINDO is an anti-hoax community that officially became a legal nonprofit organization in 2016. Currently, MAFINDO has more than 95,000 online members, over 1,000 volunteers, and more than 20 branches across Indonesia. MAFINDO also has a professional team to perform its tasks.\n\nMAFINDO carries out various activities to combat infodemics / hoax epidemics, such as hoax busting, public education, seminars, discussions, advocacy to various parties, building various anti-hoax technologies, grassroot engagement, research, and more.\n\nCertified internationally by the International Fact Checking Network (IFCN), MAFINDO has established collaborations with various communities, academics, other civil society organizations, community leaders, the United Nations (UN), the European Union (EU), the World Health Organization (WHO), the United Nations International Children\'s Emergency Fund (UNICEF), the Centers for Disease Control (CDC), Google, Facebook, and other parties.\n\nAll that MAFINDO and its network do is to contribute to building critical thinking in society.
+</string>
 
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
+    <string name="title_activity_settings">Settings</string>
 
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
+    <string-array name="language_names">
+        <item>English</item>
+        <item>Bahasa Indonesia</item>
+        <!-- Add other languages as needed -->
+    </string-array>
 
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string-array name="language_values">
+        <item>en</item>
+        <item>in</item>
+        <!-- Corresponding language codes -->
+    </string-array>
 </resources>
