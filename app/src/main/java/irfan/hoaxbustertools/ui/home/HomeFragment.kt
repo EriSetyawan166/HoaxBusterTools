@@ -143,7 +143,8 @@ class HomeFragment : Fragment(), OnFavoriteStatusChangedListener {
         _binding?.buttonCobaTool?.visibility = View.GONE
 
         // Update UI with fetchedTools
-        val adapter = FavoriteToolsAdapter(fetchedTools, dbHelper, this)
+        val adapter = FavoriteToolsAdapter(fetchedTools, dbHelper, this, requireContext())
+
 
         _binding?.recyclerViewToolsFavorite?.adapter = adapter
         _binding?.recyclerViewToolsFavorite?.visibility = View.VISIBLE

@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import irfan.hoaxbustertools.FavoriteChangeListener
+import irfan.hoaxbustertools.LocaleUtil
+import irfan.hoaxbustertools.MyApp
 import irfan.hoaxbustertools.R
 import irfan.hoaxbustertools.ToolActivity
 
@@ -44,7 +46,10 @@ class ToolsAdapter(private val context: Context, private val toolsList: List<Fir
     private var currentLanguage: String
 
     init {
-        currentLanguage = context.resources.configuration.locale.language
+        val myApp = context.applicationContext as MyApp
+        val storage = myApp.storage
+        val currentLocale = LocaleUtil.getLocaleFromPrefCode(storage.getPreferredLocale())
+        currentLanguage = currentLocale.toString()
     }
 
     interface FavoriteChangeListener {

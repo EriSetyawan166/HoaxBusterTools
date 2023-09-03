@@ -14,6 +14,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import irfan.hoaxbustertools.LocaleUtil
+import irfan.hoaxbustertools.MyApp
 import irfan.hoaxbustertools.R
 import irfan.hoaxbustertools.ToolActivity
 import irfan.hoaxbustertools.ui.tools.FirebaseContent
@@ -36,10 +38,12 @@ interface OnFavoriteStatusChangedListener {
     fun onFavoriteStatusChanged(tool: ToolItem)
 }
 
-class FavoriteToolsAdapter(private val favoriteTools: MutableList<ToolItem>,
-                           private val dbHelper: DatabaseHelper,
-                           private val listener: OnFavoriteStatusChangedListener) :
-    RecyclerView.Adapter<FavoriteToolsAdapter.ViewHolder>() {
+class FavoriteToolsAdapter(
+    private val favoriteTools: MutableList<ToolItem>,
+    private val dbHelper: DatabaseHelper,
+    private val listener: OnFavoriteStatusChangedListener,
+    private val context: Context // Add this parameter
+) : RecyclerView.Adapter<FavoriteToolsAdapter.ViewHolder>() {
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -80,7 +84,10 @@ class FavoriteToolsAdapter(private val favoriteTools: MutableList<ToolItem>,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentLanguage = getCurrentLanguage(holder.context)
+        val myApp = context.applicationContext as MyApp
+        val storage = myApp.storage
+        val currentLocale = LocaleUtil.getLocaleFromPrefCode(storage.getPreferredLocale())
+        var currentLanguage = currentLocale.toString()
 
         Log.d("language", "currentLanguage $currentLanguage")
         val tool = favoriteTools[position]

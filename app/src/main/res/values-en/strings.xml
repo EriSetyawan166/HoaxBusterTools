@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hoax Buster Tools</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Hoax Buster Tools</string>
+    <string name="halaman_depan">Home</string>
+    <string name="menu_about">About</string>
+    <string name="tools">Tools</string>
+    <string name="tool">Tool</string>
+
+    <string name="about_app_name">HBT (Hoax Buster Tools)</string>
+    <string name="about_lead_programmer">Lead Programmer</string>
+    <string name="about_lead_programmer_name">Muhammad Eri Setyawan</string>
+    <string name="about_system_analyst">System Analyst</string>
+    <string name="about_system_analyst_name">Harry Sufehmi &amp; Muhammad Umar Shalih</string>
+    <string name="about_programmer_name">Muhammad Eri Setyawan</string>
+    <string name="about_sponsor_link">MAFINDO http://www.mafindo.or.id</string>
+
+    <string name="about_version">version 2.0.0</string>
+    <string name="about_sponsor">Sponsored By</string>
+    <string name="about_bantuan_link">For help, click here: http://tbh.id/12345</string>
+
+    <string name="button_buka">Open Tool</string>
+    <string name="button_coba">Start Trying the Tool</string>
+    <string name="buka_di_browser">Open in Browser</string>
+    <string name="salin_link">Copy Link</string>
+    <string name="bagikan_link">Share Link</string>
+    <string name="tambah_ke_favorit">Add to Favorites</string>
+    <string name="Cari">Search</string>
+
+    <string name="salin">Link Copied</string>
+    <string name="share">Share link via</string>
+
+    <string name="bahasa">Language</string>
+    <string name="kredit">Credit</string>
+
+    <string name="empty_favorites_text">Your Favorite Tools List is Empty</string>
+    <string name="add_favorites_text">Add Tools to Favorites to access them from the home page</string>
+
+    <string name="tentang">
+    MAFINDO is an anti-hoax community that officially became a legal nonprofit organization in 2016. Currently, MAFINDO has more than 95,000 online members, over 1,000 volunteers, and more than 20 branches across Indonesia. MAFINDO also has a professional team to perform its tasks.\n\nMAFINDO carries out various activities to combat infodemics / hoax epidemics, such as hoax busting, public education, seminars, discussions, advocacy to various parties, building various anti-hoax technologies, grassroot engagement, research, and more.\n\nCertified internationally by the International Fact Checking Network (IFCN), MAFINDO has established collaborations with various communities, academics, other civil society organizations, community leaders, the United Nations (UN), the European Union (EU), the World Health Organization (WHO), the United Nations International Children\'s Emergency Fund (UNICEF), the Centers for Disease Control (CDC), Google, Facebook, and other parties.\n\nAll that MAFINDO and its network do is to contribute to building critical thinking in society.
+</string>
+
+    <string name="title_activity_settings">Settings</string>
+
+</resources>
