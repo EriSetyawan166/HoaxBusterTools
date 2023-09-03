@@ -48,18 +48,35 @@ class SettingsActivity : BaseActivity() {
             storage = Storage(requireContext())
             val languagePreference = findPreference<ListPreference>("pref_language")
 
-            languagePreference?.summaryProvider = Preference.SummaryProvider<ListPreference> { preference ->
-                val selectedLocale = preference.value
-                val currentLocale = storage.getPreferredLocale()
-                Log.d("LanguagePreference", "Selected Locale: $selectedLocale")
-                Log.d("LanguagePreference", "Current Locale: $currentLocale")
+            if (languagePreference != null) {
+                // Set the default value for the ListPreference
+                val selectedLocale = storage.getPreferredLocale()
+                languagePreference?.value = selectedLocale
 
-                if (selectedLocale == currentLocale) {
-                    // Display the current language/locale
-                    return@SummaryProvider Locale(currentLocale).displayLanguage
-                } else {
-                    // Display the selected language/locale
-                    return@SummaryProvider Locale(selectedLocale).displayLanguage
+                languagePreference?.summaryProvider = Preference.SummaryProvider<ListPreference> { preference ->
+                    val selectedLocale = preference.value
+                    val currentLocale = storage.getPreferredLocale()
+
+                    if (selectedLocale == currentLocale) {
+                        // Display the current language/locale
+                        return@SummaryProvider Locale(currentLocale).displayLanguage
+                    } else {
+                        // Display the selected language/locale
+                        return@SummaryProvider Locale(selectedLocale).displayLanguage
+                    }
+                }
+
+                languagePreference?.setOnPreferenceChangeListener { _, newValue ->
+                    val newLocaleCode = newValue.toString()
+                    storage.setPreferredLocale(newLocaleCode)
+                    LocaleUtil.applyLocalizedContext(requireContext(), newLocaleCode)
+                    Log.d("LanguagePreference", "Changing into: $newLocaleCode")
+
+                    // Clear all activities on the stack and launch the main activity
+                    val intent = Intent(context, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    true
                 }
             }
 

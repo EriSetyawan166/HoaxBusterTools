@@ -40,6 +40,9 @@
     <string name="bahasa">Language</string>
     <string name="kredit">Credit</string>
 
+    <string name="pilih_bahasa">Select Language</string>
+    <string name="simpan">Save</string>
+
     <string name="empty_favorites_text">Your Favorite Tools List is Empty</string>
     <string name="add_favorites_text">Add Tools to Favorites to access them from the home page</string>
 

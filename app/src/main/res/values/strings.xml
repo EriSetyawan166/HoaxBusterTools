@@ -39,6 +39,14 @@
 
     <string name="bahasa">Bahasa</string>
     <string name="kredit">Kredit</string>
+    <string name="pilih_bahasa">Pilih Bahasa</string>
+    <string name="simpan">Simpan</string>
+
+    <string-array name="languages">
+        <item>Bahasa Indonesia</item>
+        <item>English</item>
+    </string-array>
+
 
 
     <string name="empty_favorites_text">Tool Favorit Kamu Masih Kosong</string>
