@@ -5,18 +5,14 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.material.button.MaterialButton
-import irfan.hoaxbustertools.FavoriteChangeListener
 import irfan.hoaxbustertools.LocaleUtil
 import irfan.hoaxbustertools.MyApp
 import irfan.hoaxbustertools.R
@@ -32,7 +28,6 @@ data class FirebaseContent(
     val is_search: Boolean = false,
     val using_browser_default: Boolean = false,
     var isFavorite: Boolean = false
-
 )
 
 
@@ -42,7 +37,6 @@ class ToolsAdapter(private val context: Context, private val toolsList: List<Fir
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var dbHelper: DatabaseHelper
     private var favoriteChangeListener: FavoriteChangeListener? = null
-
     private var currentLanguage: String
 
     init {
@@ -68,7 +62,6 @@ class ToolsAdapter(private val context: Context, private val toolsList: List<Fir
         dbHelper = databaseHelper
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToolViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.list_tools, parent, false)
@@ -81,32 +74,21 @@ class ToolsAdapter(private val context: Context, private val toolsList: List<Fir
         val toolName = when(currentLanguage) {
             "in" -> currentTool.name_id
             "en" -> currentTool.name_eng
-            else -> currentTool.name_eng // Default to English
+            else -> currentTool.name_eng
         }
 
         val toolDescription = when(currentLanguage) {
             "in" -> currentTool.desc_id
             "en" -> currentTool.desc_eng
-            else -> currentTool.desc_eng // Default to English
+            else -> currentTool.desc_eng
         }
 
-        // Set data to views in the CardView
         holder.titleTextView.text = toolName
         holder.descriptionTextView.text = toolDescription
-        // Set image using Glide or other image loading library
+
         Glide.with(holder.itemView.context)
             .load(currentTool.image)
             .into(holder.imageView)
-
-        // Set click listener for "Buka Tool" button
-//        holder.bukaToolButton.setOnClickListener {
-//            val fragment = ToolFragment.newInstance(currentTool.url, currentTool.name_id)
-//            val fragmentManager = (holder.itemView.context as AppCompatActivity).supportFragmentManager
-//            fragmentManager.beginTransaction()
-//                .replace(R.id.fragment_container_tool, fragment) // Use the correct container ID
-//                .addToBackStack(null)
-//                .commit()
-//        }
 
         holder.favoriteIcon.setBackgroundResource(
             if (dbHelper.isToolFavorite(currentTool.name_id)) R.drawable.favorite_star_yellow_24
@@ -123,7 +105,6 @@ class ToolsAdapter(private val context: Context, private val toolsList: List<Fir
             )
         }
 
-
         holder.bukaToolButton.setOnClickListener {
             if (currentTool.using_browser_default){
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(currentTool.url))
@@ -135,7 +116,6 @@ class ToolsAdapter(private val context: Context, private val toolsList: List<Fir
                 intent.putExtra("is_search", currentTool.is_search)
                 context.startActivity(intent)
             }
-
         }
     }
 
@@ -148,6 +128,5 @@ class ToolsAdapter(private val context: Context, private val toolsList: List<Fir
         val bukaToolButton: Button = itemView.findViewById(R.id.bukaToolButton)
         val favoriteIcon: Button = itemView.findViewById(R.id.favoriteIcon)
         val context: Context = itemView.context
-
     }
 }

@@ -16,18 +16,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import irfan.hoaxbustertools.R
-import irfan.hoaxbustertools.ui.tools.FirebaseContent
-import irfan.hoaxbustertools.ui.tools.ToolsAdapter
 
 class ToolsFragment : Fragment(), ToolsAdapter.FavoriteChangeListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var toolsAdapter: ToolsAdapter
     private lateinit var menuName: String
-    private val toolsList = mutableListOf<FirebaseContent>() // Initialize an empty list
-
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var dbHelper: DatabaseHelper
+    private val toolsList = mutableListOf<FirebaseContent>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,15 +48,12 @@ class ToolsFragment : Fragment(), ToolsAdapter.FavoriteChangeListener {
         recyclerView.adapter = toolsAdapter
 
         fetchContentFromFirebase()
-
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         toolsAdapter.setFavoriteChangeListener(this)
-
         val intentFilter = IntentFilter("favorite_changed")
         LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
             favoriteChangeReceiver, intentFilter
@@ -71,9 +65,6 @@ class ToolsFragment : Fragment(), ToolsAdapter.FavoriteChangeListener {
             if (intent?.action == "favorite_changed") {
                 val nameId = intent.getStringExtra("name_id")
                 val isFavorite = intent.getBooleanExtra("is_favorite", false)
-
-                // Update the data in your toolsList based on nameId and isFavorite
-                // Notify the adapter that the data has changed
                 toolsAdapter.notifyDataSetChanged()
             }
         }
@@ -81,19 +72,14 @@ class ToolsFragment : Fragment(), ToolsAdapter.FavoriteChangeListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        // Unregister the BroadcastReceiver when the fragment is destroyed
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(
             favoriteChangeReceiver
         )
     }
 
     override fun onFavoriteChanged(nameId: String, isFavorite: Boolean) {
-        // Update the data in your toolsList based on nameId and isFavorite
-        // Notify the adapter that the data has changed
         toolsAdapter.notifyDataSetChanged()
     }
-
-
 
     private fun fetchContentFromFirebase() {
         val databaseReference = FirebaseDatabase.getInstance().getReference("menus")

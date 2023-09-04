@@ -1,10 +1,7 @@
 package irfan.hoaxbustertools
 
 import DatabaseHelper
-import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.Menu
@@ -17,7 +14,6 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.google.firebase.database.*
 import irfan.hoaxbustertools.databinding.ActivityMainBinding
@@ -29,7 +25,6 @@ import android.widget.Toast
 import androidx.navigation.NavController
 import irfan.hoaxbustertools.ui.home.HomeFragment
 import irfan.hoaxbustertools.ui.tools.FirebaseContent
-import java.util.Locale
 
 data class FirebaseMenu @JvmOverloads constructor(
     val name: String = "",
@@ -38,7 +33,6 @@ data class FirebaseMenu @JvmOverloads constructor(
     val icon: String = ""
 )
 
-
 class MainActivity : BaseActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -46,14 +40,11 @@ class MainActivity : BaseActivity() {
     private lateinit var navController: NavController
     private var currentLanguage: String = ""
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.appBarMain.toolbar)
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
@@ -88,8 +79,6 @@ class MainActivity : BaseActivity() {
 
         fetchMenusFromFirebase()
 
-        Log.d("AppBarConfig", appBarConfiguration.topLevelDestinations.toString())
-
         binding.appBarMain.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.action_settings -> {
@@ -101,12 +90,7 @@ class MainActivity : BaseActivity() {
                 else -> false
             }
         }
-
-
-
     }
-
-
 
     override fun onBackPressed() {
         val fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as? HomeFragment
@@ -127,9 +111,7 @@ class MainActivity : BaseActivity() {
         val databaseReference = FirebaseDatabase.getInstance().getReference("menus")
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Log.d("FirebaseFetch", "Data received from Firebase: $dataSnapshot")
                 val menus = dataSnapshot.children.mapNotNull { it.getValue(FirebaseMenu::class.java) }
-                Log.d("FirebaseFetch", "Processed menus: $menus")
                 updateNavigationMenuItems(menus)
                 menus.forEach { menu ->
                     val menuName = menu.name
@@ -141,7 +123,6 @@ class MainActivity : BaseActivity() {
             override fun onCancelled(databaseError: DatabaseError) {
                 val errorMessage = "Gagal Mengambil Data"
                 Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
-
             }
         })
     }
@@ -166,16 +147,11 @@ class MainActivity : BaseActivity() {
                         FirebaseContent(name_id, image, desc_id, url, name_eng, desc_eng)
                     }
 
-
                     if (isFavoritesTableEmpty) {
-                        Log.d("DatabaseInit", "Initializing favorites content")
                         initializeDatabase(contents)
                     } else {
-                        Log.d("DatabaseInit", "Favorites content already initialized")
+
                     }
-
-
-
                 }
             }
 
@@ -184,9 +160,6 @@ class MainActivity : BaseActivity() {
             }
         })
     }
-
-
-
 
     private fun updateNavigationMenuItems(menus: List<FirebaseMenu>) {
         val navView: NavigationView = binding.navView
@@ -197,7 +170,7 @@ class MainActivity : BaseActivity() {
             val menuName = when(currentLanguage) {
                 "in" -> fetchedMenu.name_id
                 "en" -> fetchedMenu.name_eng
-                else -> fetchedMenu.name_eng // Default to English
+                else -> fetchedMenu.name_eng
             }
             val menuItem = menu.add(Menu.NONE, index, Menu.NONE, menuName)
 
@@ -209,7 +182,7 @@ class MainActivity : BaseActivity() {
                         menuItem.icon = BitmapDrawable(resources, bitmap)
                     }
                     override fun onLoadCleared(placeholder: Drawable?) {
-                        // You can set a placeholder icon here
+                        //placeholder icon
                     }
                 })
 
@@ -232,8 +205,6 @@ class MainActivity : BaseActivity() {
             db.insert(content.name_id)
         }
     }
-
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)

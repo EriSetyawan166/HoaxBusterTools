@@ -23,9 +23,6 @@
         app:layout_constraintEnd_toEndOf="parent" />
   </com.google.android.material.appbar.AppBarLayout>
 
-
-
-
   <LinearLayout
       android:id="@+id/searchLayout"
       android:layout_width="match_parent"
@@ -49,9 +46,6 @@
         android:text="@string/Cari" />
   </LinearLayout>
 
-
-
-
   <WebView
       android:id="@+id/webViewTool"
       android:layout_width="match_parent"
@@ -60,6 +54,5 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/toolbarTool" />
-
 
 </LinearLayout>

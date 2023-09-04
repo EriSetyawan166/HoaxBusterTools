@@ -10,7 +10,6 @@ import irfan.hoaxbustertools.SettingsActivity
 
 class CreditFragment : Fragment() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -20,17 +19,12 @@ class CreditFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_credit, container, false)
-
-        // Set the title of the action bar to "Kredit"
         (activity as? SettingsActivity)?.setActionBarTitle("Kredit")
-
         return view
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-
-        // Reset the title of the action bar to "Pengaturan"
         (activity as? SettingsActivity)?.setActionBarTitle("Pengaturan")
     }
 

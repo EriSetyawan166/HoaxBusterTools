@@ -26,8 +26,6 @@ class LocaleUtil  {
             }
             return Locale(localeCode)
         }
-
-
         fun getLocalizedConfiguration(prefLocaleCode: String): Configuration {
             val locale = getLocaleFromPrefCode(prefLocaleCode)
             return getLocalizedConfiguration(locale)
@@ -69,7 +67,6 @@ class LocaleUtil  {
             config.setLocale(locale)
             return base.createConfigurationContext(config)
         }
-
 
         @Suppress("DEPRECATION")
         private fun getLocaleFromConfiguration(configuration: Configuration): Locale {

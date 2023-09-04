@@ -1,9 +1,7 @@
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.util.Log
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -35,14 +33,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(COLUMN_IS_FAVORITE, if (isFavorite) 1 else 0)
-        val updatedRowCount = db.update(TABLE_FAVORITES, values, "$COLUMN_NAME_ID = ?", arrayOf(nameId))
+        db.update(TABLE_FAVORITES, values, "$COLUMN_NAME_ID = ?", arrayOf(nameId))
         db.close()
-
-        Log.d("DatabaseHelper", "Updated $updatedRowCount rows for tool: $nameId, isFavorite: $isFavorite")
-
-        if (updatedRowCount == 0) {
-            Log.d("DatabaseHelper", "No rows were updated.")
-        }
     }
 
     fun getFavoriteNameIds(): List<String> {
@@ -53,15 +45,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         if (cursor.moveToFirst()) {
             val columnIndex = cursor.getColumnIndex(COLUMN_NAME_ID)
-
-
             do {
                 val nameId = cursor.getString(columnIndex)
-
                 favoriteNameIds.add(nameId)
             } while (cursor.moveToNext())
         }
-
 
         cursor.close()
         db.close()
@@ -90,7 +78,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(COLUMN_NAME_ID, nameId)
-        values.put(COLUMN_IS_FAVORITE, 0) // Set is_favorite to false
+        values.put(COLUMN_IS_FAVORITE, 0)
         db.insert(TABLE_FAVORITES, null, values)
         db.close()
     }
@@ -105,8 +93,4 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.close()
         return count == 0
     }
-
-
-
-
 }

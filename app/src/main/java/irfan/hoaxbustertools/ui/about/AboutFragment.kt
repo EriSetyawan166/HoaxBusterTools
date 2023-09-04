@@ -5,11 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import irfan.hoaxbustertools.databinding.FragmentAboutBinding
-import irfan.hoaxbustertools.ui.gallery.GalleryViewModel
-
 
 class AboutFragment : Fragment() {
 
@@ -21,9 +17,6 @@ class AboutFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val aboutViewModel =
-            ViewModelProvider(this).get(GalleryViewModel::class.java)
-
         _binding = FragmentAboutBinding.inflate(inflater, container, false)
         val root: View = binding.root
         return root
