@@ -24,7 +24,7 @@
 
     <string name="about_version">version 2.0.0</string>
     <string name="about_sponsor">Sponsored By</string>
-    <string name="about_bantuan_link">For help, click here: http://tbh.id/12345</string>
+    <string name="about_bantuan_link">For help, click here: \nhttps://web.facebook.com/messages/t/MafindoID</string>
 
     <string name="button_buka">Open Tool</string>
     <string name="button_coba">Start Trying the Tool</string>

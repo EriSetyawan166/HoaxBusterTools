@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
@@ -33,6 +34,7 @@ class ToolActivity : BaseActivity() {
     private lateinit var searchEditText: EditText
     private var isSearchMode: Boolean = false
     private var favoriteChangeListener: FavoriteChangeListener? = null
+    private var webHistory: MutableList<String> = mutableListOf()
 
     fun setFavoriteChangeListener(listener: FavoriteChangeListener) {
         favoriteChangeListener = listener
@@ -47,9 +49,10 @@ class ToolActivity : BaseActivity() {
         searchLayout = findViewById<LinearLayout>(R.id.searchLayout)
         searchEditText = findViewById<EditText>(R.id.searchEditText)
         searchButton = findViewById<Button>(R.id.searchButton)
-        
+
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_close_24)
 
         dbHelper = DatabaseHelper(this)
 
@@ -88,6 +91,8 @@ class ToolActivity : BaseActivity() {
                     val newUrl = baseUrl.replace("{search}", userInput)
                     webView.loadUrl(newUrl)
                     webView.visibility = View.VISIBLE
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(searchEditText.windowToken, 0)
                 } else {
 
                 }
@@ -107,6 +112,11 @@ class ToolActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            android.R.id.home -> {
+
+                finish()
+                return true
+            }
             R.id.action_buka_browser -> {
                 val url = intent.getStringExtra("url")
                 if (!url.isNullOrBlank()) {
@@ -167,8 +177,14 @@ class ToolActivity : BaseActivity() {
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
+    override fun onBackPressed() {
+        if (isSearchMode && !webHistory.isEmpty()) {
+            val previousUrl = webHistory.removeAt(webHistory.size - 1)
+            webView.loadUrl(previousUrl)
+        } else if (webView.canGoBack()) {
+            webView.goBack()
+        } else {
+            super.onBackPressed()
+        }
     }
 }

@@ -24,7 +24,7 @@
 
     <string name="about_version">versi 2.0.0</string>
     <string name="about_sponsor">Disponsori Oleh</string>
-    <string name="about_bantuan_link">Untuk bantuan, klik disini : http://tbh.id/12345</string>
+    <string name="about_bantuan_link">Untuk bantuan, klik disini : \nhttps://web.facebook.com/messages/t/MafindoID</string>
 
     <string name="button_buka">Buka Tool</string>
     <string name="button_coba">Mulai Mencoba Tool</string>

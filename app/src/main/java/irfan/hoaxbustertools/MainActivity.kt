@@ -195,7 +195,6 @@ class MainActivity : BaseActivity() {
                 supportActionBar?.title = menuName
                 true
             }
-
         }
     }
 
