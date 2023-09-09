@@ -24,5 +24,7 @@
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer"
         style="@style/Widget.Custom.NavigationView"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         />
 </androidx.drawerlayout.widget.DrawerLayout>
